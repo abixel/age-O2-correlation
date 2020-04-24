@@ -33,7 +33,7 @@ This script was written and tested in Python 3.6; other Python versions may not 
 ### Quick start guide:
 
 
-From the command line, run `generate.py` to generate results for each of the 11 scenarios explored in the paper. The "result" for each scenario is a grid of p-values corresponding to each tested sample size and value of f_life (the fraction of observed planets which are inhabited).
+From the command line, run `generate.py` to generate results for each of the 11 scenarios explored in the paper. The "result" for each scenario is a grid of p-values corresponding to each tested sample size and values of f_life (the fraction of observed planets which are inhabited) and f_false (fraction of planets with abiotically-sourced O2).
 
 
 Next, run `plots.py` to generate the plots for Figures 1 - 3.
