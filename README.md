@@ -1,10 +1,10 @@
 # age-O2-correlation
 
-This script explores the detectability of a correlation between the ages of habitable planets and whether or not they have oxygen ("age-O2 correlation", Bixel & Apai, under review).
+This code explores the detectability of a correlation between the ages of habitable planets and whether or not they have oxygen ("age-O2 correlation", Bixel & Apai, under review).
 
 Feel free to email A. Bixel (abixel@email.arizona.edu) with questions and comments!
 
-This script was written and tested in Python 3.6; other Python versions may not be compatible.
+The code was written and tested in Python 3.6; other Python versions may not be compatible.
 
 ### Dependencies:
 
