@@ -30,6 +30,13 @@ The code was written and tested in Python 3.6; other Python versions may not be 
 `plots.py`: generates Figures 1-3 from the referenced paper - the simulation results must be generated first!
 
 
+### Quick start guide
+
+From the command line, run `generate.py` to generate the p-value grids used to create the figures in the paper. These will be saved as .pkl files in the `results` output folder.
+
+Next, run `plots.py` to generate the three figures from the paper. These will be saved as .pdf files under `output`.
+
+By default, the plots will be fairly coarse. For better results, set `N_runs` to ~1000 and `N_grid` in `generate.py`. This will take much longer to run.
 
 
 
