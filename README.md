@@ -36,7 +36,7 @@ From the command line, run `generate.py` to generate the p-value grids used to c
 
 Next, run `plots.py` to generate the three figures from the paper. These will be saved as .pdf files under `output`.
 
-By default, the plots will be fairly coarse. For better results, set `N_runs` to ~1000 and `N_grid` in `generate.py`. This will take much longer to run.
+By default, the plots will be fairly coarse. For better results, set `N_runs` to ~1000 at the top of `generate.py`. This will take much longer to run.
 
 
 
