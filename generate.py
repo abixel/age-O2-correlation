@@ -14,6 +14,13 @@ from types import FunctionType
 # Root directory of the code
 ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
 
+# Number of runs (~100 for quick results, ~1000 for more accurate results)
+N_runs = 100
+
+# Number of cells along each axis (total number of cells is N_grid^2)
+N_grid = 50
+
+
 def draw_sample(f_life,f_false,N,sample,model,sample_args=(),model_args=()):
     if f_life>1:
         print("Error: f_life must be <= 1")
@@ -175,12 +182,6 @@ def filter_data(z,dz,val=None,mode='reflect'):
 
     
 if __name__ == "__main__":
-    # Number of runs (~100 for quick results, ~1000 for more accurate results)
-    N_runs = 100
-
-    # Number of cells along each axis (total number of cells is N_grid^2)
-    N_grid = 50
-
     # Initializes the grid axis values
     f_lifes = np.linspace(0.01,1.0,N_grid)
     Ns = np.logspace(1,3,N_grid)
