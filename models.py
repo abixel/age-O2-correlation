@@ -6,7 +6,7 @@ model_names = {'Model0': 'no correlation',
                'Model2': 'Earth is typical',
                'Model3': 'Earth had early GOE'}
                
-sample_names = {'Sample1': 'All ages (0-8 Gyr)',
+sample_names = {'Sample1': 'All ages (0-10 Gyr)',
                 'Sample2': 'Young/old systems only',
                 'Sample3': 'Intermediate age systems only',
                 'Sample4': 'No young systems',

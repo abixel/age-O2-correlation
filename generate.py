@@ -2,6 +2,7 @@ from matplotlib import pyplot as plt
 import multiprocessing as mp
 from models import *
 import numpy as np
+import os
 import pickle
 from scipy.ndimage import gaussian_filter
 from scipy.stats import spearmanr,mannwhitneyu,ttest_ind
@@ -9,6 +10,9 @@ from skimage.measure import find_contours
 import tests
 from tqdm import tqdm as bar
 from types import FunctionType
+
+# Root directory of the code
+ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 def draw_sample(f_life,f_false,N,sample,model,sample_args=(),model_args=()):
     if f_life>1:
@@ -36,6 +40,13 @@ def draw_sample(f_life,f_false,N,sample,model,sample_args=(),model_args=()):
     return ages,O2
  
 def run_grid(f_lifes,f_falses,Ns,sample,model,sample_args=(),model_args=(),test=tests.MannWhitney,N_runs=500,log=True,filename=None,do_bar=True,N_proc=1):
+    # Print the current model/sample/test
+    try:
+        print("Running:  MODEL: {:s}    SAMPLE: {:s}    TEST: {:s}".format(model_names[model.__name__],sample_names[sample.__name__],tests.test_names[test.__name__]))
+    except:
+        pass
+
+
     # Generates the p value grid for the specific model, sample, and statistical test
     p,sig_p,nans = np.zeros((len(f_lifes),len(f_falses),len(Ns)),dtype=float),np.zeros((len(f_lifes),len(f_falses),len(Ns)),dtype=float),np.zeros((len(f_lifes),len(f_falses),len(Ns)),dtype=int)
     if do_bar:
@@ -72,23 +83,9 @@ def run_grid(f_lifes,f_falses,Ns,sample,model,sample_args=(),model_args=(),test=
             for k in range(len(Ns)):
                 combos.append((i,j,k))
 
-    # (Single process) Run each combo sequentially
+    # Run each combo sequentially
     if N_proc == 1:
         for combo in bar(combos): run_bin(*combo,p,sig_p,nans)
-    
-    # (Multi process) Split up the combos and run in parallel
-    else:
-        print("N_proc > 1 currently isn't working, so use N_proc = 1")
-        return 
-        processes = [mp.Process(target=run_bin,args=((*combo,p,sig_p))) for combo in combos]
-        for i1 in range(0,len(processes),N_proc):
-            # Run the next set of processes
-            for i2 in range(i1,i1+N_proc):
-                processes[i2].start()
-                 
-            # Wait for the processes to complete
-            for i2 in range(i1,i1+N_proc):
-                processes[i2].join()
 
     # Save the results to a specified file
     if filename is not None:
@@ -99,6 +96,8 @@ def run_grid(f_lifes,f_falses,Ns,sample,model,sample_args=(),model_args=(),test=
                 pkl['logp'],pkl['sig_logp'] = p,sig_p
             else:
                 pkl['p'],pkl['sig_p'] = p,sig_p
+            if not os.path.exists(ROOT_DIR+'/results'):
+                os.mkdir(ROOT_DIR+'/results')
             pickle.dump(pkl,open(filename,'wb'))
             print("Saved {:s}".format(filename))
         except:
@@ -175,8 +174,27 @@ def filter_data(z,dz,val=None,mode='reflect'):
     return gaussian_filter(z,val,mode=mode),gaussian_filter(dz,val,mode=mode)
 
     
+if __name__ == "__main__":
+    # Number of runs (~100 for quick results, ~1000 for more accurate results)
+    N_runs = 100
+
+    # Number of cells along each axis (total number of cells is N_grid^2)
+    N_grid = 50
+
+    # Initializes the grid axis values
+    f_lifes = np.linspace(0.01,1.0,N_grid)
+    Ns = np.logspace(1,3,N_grid)
+    f_falses = np.array([0.])
+
+    # Creates the p-value grids required for Figure 2
+    run_grids(f_lifes,f_falses,Ns,samples=[Sample1],models=[Model2,Model1,Model3],tests=[tests.MannWhitney],N_runs=N_runs)
     
+    # Creates the p-value grids required for Figure 3
+    # Panel a: different age distributions (Samples)
+    run_grids(f_lifes,f_falses,Ns,samples=[Sample2,Sample4],models=[Model2],tests=[tests.MannWhitney],N_runs=N_runs)
     
-    
-    
-    
+    # Panel b: different O2 false positive rates
+    run_grid(f_lifes,[0.,0.1,0.5],Ns,sample=Sample1,model=Model2,test=tests.MannWhitney,N_runs=N_runs,filename='results/false_positives.pkl')
+
+    # Panel c: different statistical tests
+    run_grids(f_lifes,f_falses,Ns,samples=[Sample1],models=[Model2],tests=[tests.Spearman,tests.Student],N_runs=N_runs)
