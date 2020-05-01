@@ -15,10 +15,10 @@ from types import FunctionType
 ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 # Number of runs (~100 for quick results, ~1000 for more accurate results)
-N_runs = 100
+N_runs = 1000
 
 # Number of cells along each axis (total number of cells is N_grid^2)
-N_grid = 50
+N_grid = 100
 
 
 def draw_sample(f_life,f_false,N,sample,model,sample_args=(),model_args=()):
@@ -188,14 +188,14 @@ if __name__ == "__main__":
     f_falses = np.array([0.])
 
     # Creates the p-value grids required for Figure 2
-    run_grids(f_lifes,f_falses,Ns,samples=[Sample1],models=[Model2,Model1,Model3],tests=[tests.MannWhitney],N_runs=N_runs)
+    #run_grids(f_lifes,f_falses,Ns,samples=[Sample1],models=[Model2,Model1,Model3],tests=[tests.MannWhitney],N_runs=N_runs)
     
     # Creates the p-value grids required for Figure 3
     # Panel a: different age distributions (Samples)
-    run_grids(f_lifes,f_falses,Ns,samples=[Sample2,Sample4],models=[Model2],tests=[tests.MannWhitney],N_runs=N_runs)
+    #run_grids(f_lifes,f_falses,Ns,samples=[Sample2,Sample4],models=[Model2],tests=[tests.MannWhitney],N_runs=N_runs)
     
     # Panel b: different O2 false positive rates
-    run_grid(f_lifes,[0.,0.1,0.5],Ns,sample=Sample1,model=Model2,test=tests.MannWhitney,N_runs=N_runs,filename='results/false_positives.pkl')
+    #run_grid(f_lifes,[0.,0.1,0.5],Ns,sample=Sample1,model=Model2,test=tests.MannWhitney,N_runs=N_runs,filename='results/false_positives.pkl')
 
     # Panel c: different statistical tests
     run_grids(f_lifes,f_falses,Ns,samples=[Sample1],models=[Model2],tests=[tests.Spearman,tests.Student],N_runs=N_runs)
