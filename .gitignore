@@ -1,0 +1,5 @@
+*.pdf
+*.pyc
+output/*
+results/*
+.DS_Store
