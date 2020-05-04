@@ -91,7 +91,7 @@ def models_plot(show=False,model_list=[Model2,Model1,Model3],ax=None,fontsize=lf
         plt.show()
     elif save:
         init_outdir(outdir)
-        plt.savefig(outdir+'/models.pdf')
+        plt.savefig(outdir+'/Figure_1.pdf')
         plt.close()
     else:
         return ax
@@ -178,7 +178,7 @@ def contour_plot(models=['Model1','Model2','Model3'],sample='Sample1',test='Mann
         plt.show()
     elif save:
         init_outdir(outdir)
-        plt.savefig(outdir+'/contours.pdf')
+        plt.savefig(outdir+'/Figure_2.pdf')
         plt.close()
     else:
         return ax[0]    
@@ -374,9 +374,9 @@ def test_comparison_plot(model='Model2',sample='Sample1',tests=['MannWhitney','S
             ax.fill_between(xs,ys,ys+1e4,color='grey',alpha=0.15,lw=0)
         
     for i in range(2):
-        x0 = [0.45,0.522]
-        y0 = [0.25,0.423]
-        rots = [-22.5,-25.5]
+        x0 = [0.75,0.45]
+        y0 = [0.21,0.243]
+        rots = [-18.,-24]
         labels = ['Mann-Whitney U test',"Spearman's / Student's tests"]
         ax.annotate(labels[i],xy=(x0[i],y0[i]),color=cc[1],xycoords='axes fraction',ha='center',va='center',rotation=rots[i])
     
@@ -522,7 +522,7 @@ def alt_cases(show=False,filtered=True):
     if show:
         plt.show()
     else:
-        plt.savefig(outdir+'/alt_cases.pdf')
+        plt.savefig(outdir+'/Figure_3.pdf')
         plt.close()
     
     
