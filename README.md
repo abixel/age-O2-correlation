@@ -1,4 +1,4 @@
-This code explores the detectability of a possible correlation between the ages of habitable planets and whether or not they have oxygen ("age-oxygen correlation", Bixel & Apai 2020, in press).
+This code explores the detectability of a possible correlation between the ages of habitable planets and whether or not they have oxygen ("age-oxygen correlation", [Bixel & Apai 2020](https://ui.adsabs.harvard.edu/abs/2020ApJ...896..131B/abstract)).
 
 Feel free to email A. Bixel (abixel@email.arizona.edu) with questions and comments!
 
